@@ -69,6 +69,8 @@ options.UseMySQL(builder.Configuration.GetConnectionString("DefaultContext")));
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>)); 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<NormalAdvertisementService>();
+builder.Services.AddScoped<DynamicAdvertisementService>();
 builder.Services.AddScoped<AdvertisementService>();
 
 

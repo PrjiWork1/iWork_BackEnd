@@ -12,6 +12,7 @@ namespace IWork.Service.Interfaces
     public interface IUserService
     {
         Task<UserViewModel> RegisterAsync(RegisterRequest request);
+        Task<UserViewModel> GetByEmailAsync(string email);
         Task<string> LoginAsync(LoginRequest request);
         Task<bool> AssignRoleAsync(string userId, string role);
     }

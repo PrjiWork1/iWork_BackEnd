@@ -53,6 +53,7 @@ namespace IWork.Service.Services
 
             return new UserViewModel
             {
+                Id = Guid.Parse(user.Id),
                 UserName = user.UserName,
                 Email = user.Email,
                 CompleteName = user.CompleteName,
@@ -118,6 +119,21 @@ namespace IWork.Service.Services
             var token = await GenerateJWToken(user);
             Console.WriteLine($"Generated Token: {token}");
             return result.Succeeded;
+        }
+
+        public async Task<UserViewModel> GetByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null) return null;
+
+            return new UserViewModel
+            {
+                Id = Guid.Parse(user.Id),
+                UserName = user.UserName,
+                CompleteName = user.CompleteName,
+                Email = user.Email,
+                IsActive = user.IsActive
+            };
         }
     }
 }

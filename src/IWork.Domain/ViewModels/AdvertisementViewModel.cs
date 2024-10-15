@@ -14,7 +14,7 @@ namespace IWork.Domain.ViewModels
         public AdvertisementViewModel(Guid id, string title, string description, string urlBanner, 
             AdvertisementType type, bool iWorkPro, string userId, string userName, string completeName, 
             Guid categoryId, string categoryDescription, decimal advertisementRate, DateTime createdAt, 
-            decimal price, bool isActive)
+            decimal price, ICollection<ItemAdvertisementViewModel> itemAdvertisements, bool isActive)
         {
             Id = id;
             Title = title;
@@ -30,6 +30,7 @@ namespace IWork.Domain.ViewModels
             AdvertisementRate = advertisementRate;
             CreatedAt = createdAt;
             Price = price;
+            this.itemAdvertisements = itemAdvertisements;
             IsActive = isActive;
         }
 
@@ -47,6 +48,7 @@ namespace IWork.Domain.ViewModels
         public decimal AdvertisementRate { get; set; }
         public DateTime CreatedAt { get; set; }
         public decimal Price { get; set; }
+        public ICollection<ItemAdvertisementViewModel> itemAdvertisements { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -10,9 +10,9 @@ namespace IWork.Domain.Models
 {
     public class ItemAdvertisement
     {
-        public ItemAdvertisement(string name, decimal price, Guid dynamicAdvertisementId)
+        public ItemAdvertisement(string name, decimal price)
         {
-            ValidateAndSetValues(name, price, dynamicAdvertisementId);
+            ValidateAndSetValues(name, price);
         }
 
         public Guid Id { get; set; }
@@ -22,11 +22,10 @@ namespace IWork.Domain.Models
 
         public DynamicAdvertisement DynamicAdvertisement { get; set; }
 
-        private void ValidateAndSetValues(string name, decimal price, Guid dynamicAdvertisementId)
+        private void ValidateAndSetValues(string name, decimal price)
         {
             ValidateName(name);
             ValidatePrice(price);
-            ValidateDynamicAdvertisementId(dynamicAdvertisementId);
 
             Name = name;
             Price = price;
@@ -45,10 +44,6 @@ namespace IWork.Domain.Models
             DomainExceptionValidations.ExceptionHandler(price <= 0, "Invalid Price. Price must be greater than zero!");
         }
 
-        private void ValidateDynamicAdvertisementId(Guid dynamicAdvertisementId)
-        {
-            DomainExceptionValidations.ExceptionHandler(dynamicAdvertisementId == Guid.Empty, "Invalid DynamicAdvertisementId. DynamicAdvertisementId is required!");
-        }
     }
 
 }

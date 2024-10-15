@@ -7,9 +7,9 @@ namespace IWork.API.Handlers.NormalAdvertisementHandler
 {
     public class CreateNormalAdvertisementHandler : IRequestHandler<NormalAdvertisementAddCommand, bool>
     {
-        private readonly AdvertisementService _advertisementService;
+        private readonly NormalAdvertisementService _advertisementService;
 
-        public CreateNormalAdvertisementHandler(AdvertisementService normalAdvertisementService)
+        public CreateNormalAdvertisementHandler(NormalAdvertisementService normalAdvertisementService)
         {
             _advertisementService = normalAdvertisementService;
         }

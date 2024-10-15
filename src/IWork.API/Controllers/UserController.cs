@@ -24,6 +24,18 @@ namespace IWork.API.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet("GetUserByEmail")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            var user = await _userService.GetByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound("Usuário não encontrado!");
+            }
+            return Ok(user);
+        }
+
         [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)

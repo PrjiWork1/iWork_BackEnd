@@ -1,4 +1,5 @@
-﻿using IWork.Domain.Commands.NormalAdvertisementCommands;
+﻿using IWork.Domain.Commands.AdvertisementCommands;
+using IWork.Domain.Commands.NormalAdvertisementCommands;
 using IWork.Service.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -24,7 +25,7 @@ namespace IWork.API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
-            var advertisements = _advertisementService.GetAlldvertisements();
+            var advertisements = _advertisementService.GetAllAdvertisements();
             if (advertisements == null)
             {
                return NotFound();
@@ -32,7 +33,7 @@ namespace IWork.API.Controllers
             return Ok(advertisements);
         }
 
-        [HttpGet("GetAdvertisementById{Id}")]
+        [HttpGet("GetAdvertisementById")]
         [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -43,7 +44,16 @@ namespace IWork.API.Controllers
 
         [HttpPost("CreateNormalAdvertisement")]
         [Authorize(Roles = "Admin, User")]
-        public async Task<IActionResult> Post([FromBody] NormalAdvertisementAddCommand command)
+        public async Task<IActionResult> AddNormalAdvertisement([FromBody] NormalAdvertisementAddCommand command)
+        {
+            var response = await _mediator.Send(command);
+            if (!response) return BadRequest();
+            return CreatedAtRoute(response, response);
+        }
+
+        [HttpPost("CreateDynamicAdvertisement")]
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IActionResult> AddDynamicAdvertisement([FromBody] DynamicAdvertisementAddCommand command)
         {
             var response = await _mediator.Send(command);
             if (!response) return BadRequest();

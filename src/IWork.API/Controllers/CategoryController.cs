@@ -25,7 +25,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _categoryService.GetAll();
@@ -39,7 +39,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetById(Guid Id)
         {
             var response = await _categoryService.GetById(Id);
