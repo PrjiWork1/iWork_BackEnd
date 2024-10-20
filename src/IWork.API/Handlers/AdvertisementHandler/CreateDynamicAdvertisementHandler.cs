@@ -3,7 +3,6 @@ using IWork.Domain.Models;
 using IWork.Service.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace IWork.API.Handlers.AdvertisementHandler
 {
@@ -25,7 +24,8 @@ namespace IWork.API.Handlers.AdvertisementHandler
                 request.UserId,
                 request.CategoryId,
                 request.IsActive,
-                DateTime.UtcNow
+                DateTime.UtcNow,
+                request.Status
             );
 
             if (request.itemAdvertisements != null)

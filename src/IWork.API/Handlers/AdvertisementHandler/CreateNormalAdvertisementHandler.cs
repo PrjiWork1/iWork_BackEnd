@@ -16,9 +16,19 @@ namespace IWork.API.Handlers.NormalAdvertisementHandler
 
         public async Task<bool> Handle(NormalAdvertisementAddCommand request, CancellationToken cancellationToken)
         {
-            var normalAdvertisement = new NormalAdvertisement(request.Title, request.Description, request.UrlBanner,
-            request.Type, request.IWorkPro, request.UserId, request.CategoryId, request.IsActive, DateTime.UtcNow,
-            request.Price);
+            var normalAdvertisement = new NormalAdvertisement(
+                request.Title, 
+                request.Description, 
+                request.UrlBanner,
+                request.Type, 
+                request.IWorkPro, 
+                request.UserId, 
+                request.CategoryId, 
+                request.IsActive, 
+                DateTime.UtcNow,
+                request.Price,
+                request.Status
+            );
 
             var result = await _advertisementService.Add(normalAdvertisement);
 

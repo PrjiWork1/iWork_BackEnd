@@ -47,7 +47,12 @@ namespace IWork.Data.Configuration
             builder.Property(a => a.CreatedAt)
                 .IsRequired();
 
-         builder.HasOne(a => a.User)
+            builder.Property(a => a.Status)
+            .IsRequired()
+            .HasConversion<string>()
+            .HasMaxLength(50);
+
+            builder.HasOne(a => a.User)
                 .WithMany(u => u.DynamicAdvertisements)
                 .HasForeignKey(a => a.UserId)
                 .IsRequired();

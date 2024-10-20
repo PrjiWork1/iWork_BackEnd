@@ -1,5 +1,8 @@
 ﻿using IWork.Domain.Commands.AdvertisementCommands;
 using IWork.Domain.Commands.NormalAdvertisementCommands;
+using IWork.Domain.Requests;
+using IWork.Domain.ViewModels;
+using IWork.Service.Interfaces;
 using IWork.Service.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,10 +29,12 @@ namespace IWork.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var advertisements = _advertisementService.GetAllAdvertisements();
+
             if (advertisements == null)
             {
-               return NotFound();
+               return NotFound("Nenhum anúncio cadastrado");
             }
+
             return Ok(advertisements);
         }
 
@@ -58,6 +63,16 @@ namespace IWork.API.Controllers
             var response = await _mediator.Send(command);
             if (!response) return BadRequest();
             return CreatedAtRoute(response, response);
+        }
+
+        [HttpPut("UpdateStatusAdvertisement{Id}")]
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IActionResult> UpdateStatusAdvertisement(Guid Id, UpdateAdvertisementStatusRequest command)
+        {
+            var advertisement = new UpdateAdvertisementStatusCommand(Id, command);
+            var response  = await _mediator.Send(advertisement);
+            if (!response) return NotFound("Anúncio não encontrado");
+            return Ok(response);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using IWork.Data.Context;
 using IWork.Domain.Models;
+using IWork.Domain.Models.Enums;
 using IWork.Domain.Models.IdentityEntities;
 using IWork.Domain.ViewModels;
 using IWork.Service.Interfaces;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace IWork.Service.Services
 {
-    public class AdvertisementService
+    public class AdvertisementService 
     {
         private readonly DataContext _context;
         public AdvertisementService(DataContext context)
@@ -42,6 +43,7 @@ namespace IWork.Service.Services
                     n.AdvertisementRate,
                     n.CreatedAt,
                     n.Price,
+                    n.Status,
                     null, // Para itens, se não houver
                     n.IsActive
                 ))
@@ -67,6 +69,7 @@ namespace IWork.Service.Services
                     d.AdvertisementRate,
                     d.CreatedAt,
                     0, // Preço como 0 para anúncios dinâmicos
+                    d.Status,
                     d.Items.Select(item => new ItemAdvertisementViewModel(
                         item.Name,
                         item.Price
@@ -109,6 +112,7 @@ namespace IWork.Service.Services
                     normalAdvertisement.AdvertisementRate,
                     normalAdvertisement.CreatedAt,
                     normalAdvertisement.Price,
+                    normalAdvertisement.Status,
                     null, // Para itens, se não houver
                     normalAdvertisement.IsActive
                 );
@@ -139,6 +143,7 @@ namespace IWork.Service.Services
                     dynamicAdvertisement.AdvertisementRate,
                     dynamicAdvertisement.CreatedAt,
                     0, // Preço como 0 para anúncios dinâmicos
+                    dynamicAdvertisement.Status,
                     dynamicAdvertisement.Items.Select(item => new ItemAdvertisementViewModel(
                         item.Name,
                         item.Price
@@ -147,8 +152,37 @@ namespace IWork.Service.Services
                 );
             }
 
-            return null; 
+            return null;
         }
 
+        public async Task<bool> UpdateAdvertisementStatus(Guid advertisementId, AdvertisementStatus status)
+        {
+
+            var normalAdvertisement = await _context.NormalAdvertisement
+                .FirstOrDefaultAsync(n => n.Id == advertisementId);
+
+            if (normalAdvertisement != null)
+            {
+                normalAdvertisement.Status = status;
+                _context.NormalAdvertisement.Update(normalAdvertisement);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            var dynamicAdvertisement = await _context.DynamicAdvertisement
+                .FirstOrDefaultAsync(d => d.Id == advertisementId);
+
+            if (dynamicAdvertisement != null)
+            {
+
+                dynamicAdvertisement.Status = status;
+                _context.DynamicAdvertisement.Update(dynamicAdvertisement);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+
+            return false;
+        }
     }
 }

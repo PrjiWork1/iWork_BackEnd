@@ -14,10 +14,10 @@ namespace IWork.Domain.Models
     {
         public Advertisement(string title, string description, string urlBanner,
            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId,
-           bool isActive, DateTime createdAt)
+           bool isActive, DateTime createdAt, AdvertisementStatus status)
         {
             ValidateAndSetValues(title, description, urlBanner, type, iWorkPro, userId,
-                categoryId, isActive, createdAt);
+                categoryId, isActive, createdAt, status);
         }
 
         public Guid Id { get;  set; }
@@ -32,10 +32,12 @@ namespace IWork.Domain.Models
         public Category Category { get; set; }
         public decimal AdvertisementRate { get; set; }
         public DateTime CreatedAt { get; set; }
+        public AdvertisementStatus Status { get; set; }
         public bool IsActive { get; set; }
 
         private void ValidateAndSetValues(string title, string description, string urlBanner,
-            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, bool isActive, DateTime createdAt)
+            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, bool isActive, 
+            DateTime createdAt, AdvertisementStatus status)
         {
             ValidateTitle(title);
             ValidateDescription(description);
@@ -51,6 +53,7 @@ namespace IWork.Domain.Models
             UserId = userId;
             CategoryId = categoryId;
             CreatedAt = createdAt;
+            Status = status;
             IsActive = true;
 
             AdvertisementRate = CalculateAdvertisementRate();

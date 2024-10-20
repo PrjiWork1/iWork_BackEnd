@@ -13,8 +13,8 @@ namespace IWork.Domain.Commands.AdvertisementCommands
     public class DynamicAdvertisementAddCommand : IRequest<bool>
     {
         public DynamicAdvertisementAddCommand(string title, string description, string urlBanner, 
-            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, DateTime createdAt, 
-            ICollection<ItemAdvertisementRequest> itemAdvertisements, bool isActive)
+            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, DateTime createdAt,
+            AdvertisementStatus status, ICollection<ItemAdvertisementRequest> itemAdvertisements, bool isActive)
         {
             Title = title;
             Description = description;
@@ -24,6 +24,7 @@ namespace IWork.Domain.Commands.AdvertisementCommands
             UserId = userId;
             CategoryId = categoryId;
             CreatedAt = createdAt;
+            Status = status;
             this.itemAdvertisements = itemAdvertisements;
             IsActive = isActive;
         }
@@ -36,6 +37,7 @@ namespace IWork.Domain.Commands.AdvertisementCommands
         public string UserId { get; set; }
         public Guid CategoryId { get; set; }
         public DateTime CreatedAt { get; set; }
+        public AdvertisementStatus Status { get; set; }
         public ICollection<ItemAdvertisementRequest> itemAdvertisements { get; set; }
         public bool IsActive { get; set; }
     }

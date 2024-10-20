@@ -51,6 +51,11 @@ namespace IWork.Data.Configuration
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
+            builder.Property(a => a.Status)
+              .IsRequired()
+              .HasConversion<string>()
+              .HasMaxLength(50);
+
             builder.HasOne(a => a.User)
                 .WithMany(u => u.NormalAdvertisements)
                 .HasForeignKey(a => a.UserId)

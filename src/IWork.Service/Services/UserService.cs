@@ -124,7 +124,13 @@ namespace IWork.Service.Services
         public async Task<UserViewModel> GetByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null) return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var role = roles.FirstOrDefault();
+
 
             return new UserViewModel
             {
@@ -132,7 +138,8 @@ namespace IWork.Service.Services
                 UserName = user.UserName,
                 CompleteName = user.CompleteName,
                 Email = user.Email,
-                IsActive = user.IsActive
+                Role = role,
+                IsActive = user.IsActive,
             };
         }
     }

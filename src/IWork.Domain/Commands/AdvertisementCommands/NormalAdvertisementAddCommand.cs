@@ -12,20 +12,9 @@ namespace IWork.Domain.Commands.NormalAdvertisementCommands
 {
     public class NormalAdvertisementAddCommand : IRequest<bool>
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string UrlBanner { get; set; }
-        public AdvertisementType Type { get; set; }
-        public bool IWorkPro { get; set; }
-        public string UserId { get; set; }
-        public Guid CategoryId { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public decimal Price { get; set; }
-        public bool IsActive { get; set; }
-
-        public NormalAdvertisementAddCommand(string title, string description, string urlBanner,
+         public NormalAdvertisementAddCommand(string title, string description, string urlBanner,
            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId,
-           DateTime createdAt, decimal price, bool isActive)
+           DateTime createdAt, AdvertisementStatus status, decimal price, bool isActive)
         {
             Title = title;
             Description = description;
@@ -38,5 +27,17 @@ namespace IWork.Domain.Commands.NormalAdvertisementCommands
             Price = price;
             IsActive = isActive;
         }
+
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string UrlBanner { get; set; }
+        public AdvertisementType Type { get; set; }
+        public bool IWorkPro { get; set; }
+        public string UserId { get; set; }
+        public Guid CategoryId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public AdvertisementStatus Status { get; set; }
+        public decimal Price { get; set; }
+        public bool IsActive { get; set; }
     }
 }
