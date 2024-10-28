@@ -26,7 +26,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpGet("GetAllCategories")]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var query = new GetAllCategoriesQuery();
@@ -41,7 +41,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpGet("GetCategoryById{Id}")]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid Id)
         {
             var query = new GetByIdCategoryQuery(Id);
