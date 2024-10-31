@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IWork.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241019132815_AdvertisementStatus")]
-    partial class AdvertisementStatus
+    [Migration("20241028181056_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,9 @@ namespace IWork.Data.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("NumberOfSales")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -98,6 +101,86 @@ namespace IWork.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("DynamicAdvertisement");
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("AdvertisementId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("AdvertisementRate")
+                        .HasColumnType("decimal(5,4)");
+
+                    b.Property<int>("AdvertisementTemplate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AdvertisementType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AdvertiserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("ContractDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ContractorId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("HiringStatus")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdvertiserId");
+
+                    b.HasIndex("ContractorId");
+
+                    b.ToTable("HiringAdvertisements");
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.HiringItemAdvertisement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("HiringAdvertisementId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HiringAdvertisementId");
+
+                    b.ToTable("HiringItemAdvertisements");
                 });
 
             modelBuilder.Entity("IWork.Domain.Models.IdentityEntities.Role", b =>
@@ -250,7 +333,7 @@ namespace IWork.Data.Migrations
 
                     b.HasIndex("DynamicAdvertisementId");
 
-                    b.ToTable("itemAdvertisement");
+                    b.ToTable("ItemAdvertisement");
                 });
 
             modelBuilder.Entity("IWork.Domain.Models.NormalAdvertisement", b =>
@@ -278,6 +361,9 @@ namespace IWork.Data.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("NumberOfSales")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -421,6 +507,30 @@ namespace IWork.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
+                {
+                    b.HasOne("IWork.Domain.Models.IdentityEntities.User", null)
+                        .WithMany()
+                        .HasForeignKey("AdvertiserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IWork.Domain.Models.IdentityEntities.User", null)
+                        .WithMany()
+                        .HasForeignKey("ContractorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.HiringItemAdvertisement", b =>
+                {
+                    b.HasOne("IWork.Domain.Models.HiringAdvertisement", null)
+                        .WithMany("Items")
+                        .HasForeignKey("HiringAdvertisementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IWork.Domain.Models.IdentityEntities.UserRole", b =>
                 {
                     b.HasOne("IWork.Domain.Models.IdentityEntities.Role", "Role")
@@ -514,6 +624,11 @@ namespace IWork.Data.Migrations
                 });
 
             modelBuilder.Entity("IWork.Domain.Models.DynamicAdvertisement", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
                 {
                     b.Navigation("Items");
                 });

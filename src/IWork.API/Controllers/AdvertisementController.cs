@@ -85,8 +85,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPut("UpdateNumberOfSalesAdvertisement{Id}")]
-        //[Authorize(Roles = "Admin, User")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> UpdateNumberOfSalesAdvertisement(Guid Id, AdvertisementNumberOfSalesRequest command)
         {
             var advertisement = new UpdateAdvertisementNumberOfSalesCommand(Id, command);

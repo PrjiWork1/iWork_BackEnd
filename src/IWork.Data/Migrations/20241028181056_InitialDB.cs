@@ -187,6 +187,42 @@ namespace IWork.Data.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "HiringAdvertisements",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    AdvertisementId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ContractorId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    AdvertiserId = table.Column<string>(type: "varchar(255)", nullable: false),
+                    ContractDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    HiringStatus = table.Column<int>(type: "int", nullable: false),
+                    AdvertisementTemplate = table.Column<int>(type: "int", nullable: false),
+                    AdvertisementType = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AdvertisementRate = table.Column<decimal>(type: "decimal(5,4)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HiringAdvertisements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HiringAdvertisements_AspNetUsers_AdvertiserId",
+                        column: x => x.AdvertiserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HiringAdvertisements_AspNetUsers_ContractorId",
+                        column: x => x.ContractorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "DynamicAdvertisement",
                 columns: table => new
                 {
@@ -200,6 +236,8 @@ namespace IWork.Data.Migrations
                     CategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    NumberOfSales = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -226,7 +264,6 @@ namespace IWork.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
                     UrlBanner = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
@@ -236,6 +273,8 @@ namespace IWork.Data.Migrations
                     CategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    NumberOfSales = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -257,20 +296,41 @@ namespace IWork.Data.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "itemAdvertisement",
+                name: "HiringItemAdvertisements",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    HiringAdvertisementId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HiringItemAdvertisements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HiringItemAdvertisements_HiringAdvertisements_HiringAdvertis~",
+                        column: x => x.HiringAdvertisementId,
+                        principalTable: "HiringAdvertisements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ItemAdvertisement",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     DynamicAdvertisementId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Stock = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_itemAdvertisement", x => x.Id);
+                    table.PrimaryKey("PK_ItemAdvertisement", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_itemAdvertisement_DynamicAdvertisement_DynamicAdvertisementId",
+                        name: "FK_ItemAdvertisement_DynamicAdvertisement_DynamicAdvertisementId",
                         column: x => x.DynamicAdvertisementId,
                         principalTable: "DynamicAdvertisement",
                         principalColumn: "Id",
@@ -326,8 +386,23 @@ namespace IWork.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_itemAdvertisement_DynamicAdvertisementId",
-                table: "itemAdvertisement",
+                name: "IX_HiringAdvertisements_AdvertiserId",
+                table: "HiringAdvertisements",
+                column: "AdvertiserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HiringAdvertisements_ContractorId",
+                table: "HiringAdvertisements",
+                column: "ContractorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HiringItemAdvertisements_HiringAdvertisementId",
+                table: "HiringItemAdvertisements",
+                column: "HiringAdvertisementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemAdvertisement_DynamicAdvertisementId",
+                table: "ItemAdvertisement",
                 column: "DynamicAdvertisementId");
 
             migrationBuilder.CreateIndex(
@@ -360,13 +435,19 @@ namespace IWork.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "itemAdvertisement");
+                name: "HiringItemAdvertisements");
+
+            migrationBuilder.DropTable(
+                name: "ItemAdvertisement");
 
             migrationBuilder.DropTable(
                 name: "NormalAdvertisement");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "HiringAdvertisements");
 
             migrationBuilder.DropTable(
                 name: "DynamicAdvertisement");

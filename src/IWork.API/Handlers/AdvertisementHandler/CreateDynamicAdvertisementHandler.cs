@@ -42,7 +42,7 @@ namespace IWork.API.Handlers.AdvertisementHandler
           
         
 
-        var result = await _advertisementService.Add(dynamicAdvertisement);
+            var result = await _advertisementService.Add(dynamicAdvertisement);
 
             if (result) return true;
 

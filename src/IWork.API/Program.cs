@@ -72,6 +72,7 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<NormalAdvertisementService>();
 builder.Services.AddScoped<DynamicAdvertisementService>();
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
+builder.Services.AddScoped<HiringAdvertisementService>();
 
 
 builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("AzureBlobStorage")));

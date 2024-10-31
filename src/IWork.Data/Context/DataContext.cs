@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IWork.Data.Configuration;
 using IWork.Domain.Models;
+using IWork.Domain.Models.Enums;
 
 namespace IWork.Data.Context
 {
@@ -24,7 +25,9 @@ namespace IWork.Data.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<NormalAdvertisement> NormalAdvertisement { get; set; }
         public DbSet<DynamicAdvertisement> DynamicAdvertisement { get; set; }
-        public DbSet<ItemAdvertisement> itemAdvertisement{ get; set; }
+        public DbSet<ItemAdvertisement> ItemAdvertisement{ get; set; }
+        public DbSet<HiringAdvertisement> HiringAdvertisements { get; set; } 
+        public DbSet<HiringItemAdvertisement> HiringItemAdvertisements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +38,8 @@ namespace IWork.Data.Context
             modelBuilder.ApplyConfiguration(new NormalAdvertisementEntityConfiguration());
             modelBuilder.ApplyConfiguration(new DynamicAdvertisementEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ItemAdvertisementEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new HiringAdvertisementEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new HiringItemAdvertisementEntityConfiguration());
 
             modelBuilder.Entity<UserRole>(up => {
                 up.HasKey(u => new { u.UserId, u.RoleId });
