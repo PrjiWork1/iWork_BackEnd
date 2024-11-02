@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IWork.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241028181056_InitialDB")]
-    partial class InitialDB
+    [Migration("20241102172514_HiringAdvertisement")]
+    partial class HiringAdvertisement
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,9 +61,6 @@ namespace IWork.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("IWorkPro")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
@@ -87,8 +84,8 @@ namespace IWork.Data.Migrations
 
                     b.Property<string>("UrlBanner")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -115,11 +112,15 @@ namespace IWork.Data.Migrations
                     b.Property<decimal>("AdvertisementRate")
                         .HasColumnType("decimal(5,4)");
 
-                    b.Property<int>("AdvertisementTemplate")
-                        .HasColumnType("int");
+                    b.Property<string>("AdvertisementTemplate")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
-                    b.Property<int>("AdvertisementType")
-                        .HasColumnType("int");
+                    b.Property<string>("AdvertisementType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("AdvertiserId")
                         .IsRequired()
@@ -132,17 +133,11 @@ namespace IWork.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("HiringStatus")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
@@ -172,9 +167,6 @@ namespace IWork.Data.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -356,9 +348,6 @@ namespace IWork.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
-                    b.Property<bool>("IWorkPro")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
@@ -385,8 +374,8 @@ namespace IWork.Data.Migrations
 
                     b.Property<string>("UrlBanner")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<string>("UserId")
                         .IsRequired()

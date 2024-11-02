@@ -11,9 +11,9 @@ namespace IWork.Domain.Models
     public class DynamicAdvertisement : Advertisement
     {
         public DynamicAdvertisement(string title, string description, string urlBanner,
-            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId,
+            AdvertisementType type, string userId, Guid categoryId,
             bool isActive, DateTime createdAt, AdvertisementStatus status, int numberOfSales)
-            : base(title, description, urlBanner, type, iWorkPro, userId, categoryId, isActive, createdAt, status, numberOfSales)
+            : base(title, description, urlBanner, type, userId, categoryId, isActive, createdAt, status, numberOfSales)
         {
             Items = new List<ItemAdvertisement>();
         }

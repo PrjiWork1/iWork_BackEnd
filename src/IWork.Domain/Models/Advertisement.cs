@@ -13,10 +13,10 @@ namespace IWork.Domain.Models
     public abstract class Advertisement
     {
         public Advertisement(string title, string description, string urlBanner,
-           AdvertisementType type, bool iWorkPro, string userId, Guid categoryId,
+           AdvertisementType type, string userId, Guid categoryId,
            bool isActive, DateTime createdAt, AdvertisementStatus status, int numberOfSales)
         {
-            ValidateAndSetValues(title, description, urlBanner, type, iWorkPro, userId,
+            ValidateAndSetValues(title, description, urlBanner, type, userId,
                 categoryId, isActive, createdAt, status, numberOfSales);
         }
 
@@ -25,7 +25,6 @@ namespace IWork.Domain.Models
         public string Description { get; set; }
         public string UrlBanner { get; set; }
         public AdvertisementType Type { get; set; }
-        public bool IWorkPro { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public Guid CategoryId { get; set; }
@@ -37,7 +36,7 @@ namespace IWork.Domain.Models
         public bool IsActive { get; set; }
 
         private void ValidateAndSetValues(string title, string description, string urlBanner,
-            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, bool isActive, 
+            AdvertisementType type, string userId, Guid categoryId, bool isActive, 
             DateTime createdAt, AdvertisementStatus status, int numberOfSales)
         {
             ValidateTitle(title);
@@ -50,7 +49,6 @@ namespace IWork.Domain.Models
             Description = description;
             UrlBanner = urlBanner;
             Type = type;
-            IWorkPro = iWorkPro;
             UserId = userId;
             CategoryId = categoryId;
             CreatedAt = createdAt;

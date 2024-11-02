@@ -12,7 +12,7 @@ namespace IWork.Domain.ViewModels
     public class AdvertisementViewModel
     {
         public AdvertisementViewModel(Guid id, string title, string description, string urlBanner, 
-            AdvertisementType type, bool iWorkPro, string userId, string userName, string completeName, 
+            AdvertisementType type, string userId, string userName, string completeName, 
             Guid categoryId, string categoryDescription, decimal advertisementRate, DateTime createdAt, 
             decimal price, AdvertisementStatus status, int numberOfSales, 
             ICollection<ItemAdvertisementViewModel> itemAdvertisements, bool isActive)
@@ -22,7 +22,6 @@ namespace IWork.Domain.ViewModels
             Description = description;
             UrlBanner = urlBanner;
             Type = type;
-            IWorkPro = iWorkPro;
             UserId = userId;
             UserName = userName;
             CompleteName = completeName;
@@ -42,7 +41,6 @@ namespace IWork.Domain.ViewModels
         public string Description { get; set; }
         public string UrlBanner { get; set; }
         public AdvertisementType Type { get; set; }
-        public bool IWorkPro { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string CompleteName { get; set; }

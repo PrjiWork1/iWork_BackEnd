@@ -26,12 +26,10 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                     request.AdvertisementId,
                     request.ContractorId,
                     request.AdvertiserId,
-                    request.HiringStatus,
                     request.AdvertisementTemplate,
                     request.AdvertisementType,
                     request.Price,
                     0,
-                    request.Quantity,
                     0, 
                     request.IsActive
                 );
@@ -46,10 +44,8 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                     request.AdvertisementId,
                     request.ContractorId,
                     request.AdvertiserId,
-                    request.HiringStatus,
                     request.AdvertisementTemplate,
                     request.AdvertisementType,
-                    0, 
                     0,
                     0,
                     0, 
@@ -60,7 +56,7 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                 {
                     foreach (var item in request.Items)
                     {
-                        var hiringItem = new HiringItemAdvertisement(item.Name, item.Quantity, item.Price);
+                        var hiringItem = new HiringItemAdvertisement(item.Name, item.Price);
                         hiringAdvertisement.Items.Add(hiringItem); 
                     }
 

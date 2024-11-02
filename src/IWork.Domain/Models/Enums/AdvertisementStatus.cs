@@ -8,7 +8,6 @@ namespace IWork.Domain.Models.Enums
 {
     public enum AdvertisementStatus
     {
-        Created,
         UnderReview,
         Approved,
         NotApproved

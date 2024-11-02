@@ -27,7 +27,6 @@ namespace IWork.API.Handlers.AdvertisementHandler
                 a.Description,
                 a.UrlBanner,
                 a.Type,
-                a.IWorkPro,
                 a.UserId,
                 a.UserName,
                 a.CompleteName,

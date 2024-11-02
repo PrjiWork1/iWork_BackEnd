@@ -20,8 +20,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPost("upload")]
-        // [Authorize(Roles = "Admin, User")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult> UploadProfilePicture(IFormFile file)
         {
             if (file == null) return BadRequest("File not found.");

@@ -16,19 +16,14 @@ namespace IWork.Data.Configuration
             builder.Property<Guid>("Id")
                .ValueGeneratedOnAdd();
 
-            // Configura o relacionamento com HiringAdvertisement
             builder.HasOne<HiringAdvertisement>()
                 .WithMany(h => h.Items)
                 .HasForeignKey(i => i.HiringAdvertisementId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configura outras propriedades
             builder.Property(i => i.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-
-            builder.Property(i => i.Quantity)
-                .IsRequired();
 
             builder.Property(i => i.Price)
                 .IsRequired()

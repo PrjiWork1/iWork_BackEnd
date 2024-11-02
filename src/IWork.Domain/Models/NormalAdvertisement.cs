@@ -13,9 +13,9 @@ namespace IWork.Domain.Models
     public class NormalAdvertisement : Advertisement
     {
         public NormalAdvertisement(string title, string description, string urlBanner, AdvertisementType type, 
-            bool iWorkPro, string userId, Guid categoryId, bool isActive, DateTime createdAt, decimal price, 
+            string userId, Guid categoryId, bool isActive, DateTime createdAt, decimal price, 
             AdvertisementStatus status, int numberOfSales) : 
-            base(title, description, urlBanner, type, iWorkPro, userId, categoryId, isActive, createdAt, status, numberOfSales)
+            base(title, description, urlBanner, type, userId, categoryId, isActive, createdAt, status, numberOfSales)
         {
             ValidatePrice(price);
 

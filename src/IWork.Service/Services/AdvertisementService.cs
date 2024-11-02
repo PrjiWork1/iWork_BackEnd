@@ -30,17 +30,17 @@ namespace IWork.Service.Services
                 .AsNoTracking()
                 .Include(a => a.Category)
                 .Include(a => a.User)
-                .ToListAsync(); // Materializa a consulta
+                .ToListAsync(); 
 
             // Consultar anúncios dinâmicos
             var dynamicAdvertisements = await _context.DynamicAdvertisement
                 .AsNoTracking()
                 .Include(a => a.Category)
                 .Include(a => a.User)
-                .Include(a => a.Items) // Incluindo os itens
-                .ToListAsync(); // Materializa a consulta
+                .Include(a => a.Items)
+                .ToListAsync(); 
 
-            // Combinar as duas listas
+            
             var allAdvertisements = normalAdvertisements
                 .Select(n => new AdvertisementDTO(
                     n.Id,
@@ -48,7 +48,6 @@ namespace IWork.Service.Services
                     n.Description,
                     n.UrlBanner,
                     n.Type,
-                    n.IWorkPro,
                     n.UserId,
                     n.User.UserName,
                     n.User.CompleteName,
@@ -68,7 +67,6 @@ namespace IWork.Service.Services
                     d.Description,
                     d.UrlBanner,
                     d.Type,
-                    d.IWorkPro,
                     d.UserId,
                     d.User.UserName,
                     d.User.CompleteName,
@@ -85,7 +83,7 @@ namespace IWork.Service.Services
                     )).ToList(),
                     d.IsActive
                 )))
-                .ToList(); // Materializa a consulta final
+                .ToList(); 
 
             // Filtragem e ordenação com base no contexto
             if (isAdmin)
@@ -124,7 +122,6 @@ namespace IWork.Service.Services
                     normalAdvertisement.Description,
                     normalAdvertisement.UrlBanner,
                     normalAdvertisement.Type,
-                    normalAdvertisement.IWorkPro,
                     normalAdvertisement.UserId,
                     normalAdvertisement.User.UserName,
                     normalAdvertisement.User.CompleteName,
@@ -156,7 +153,6 @@ namespace IWork.Service.Services
                     dynamicAdvertisement.Description,
                     dynamicAdvertisement.UrlBanner,
                     dynamicAdvertisement.Type,
-                    dynamicAdvertisement.IWorkPro,
                     dynamicAdvertisement.UserId,
                     dynamicAdvertisement.User.UserName,
                     dynamicAdvertisement.User.CompleteName,

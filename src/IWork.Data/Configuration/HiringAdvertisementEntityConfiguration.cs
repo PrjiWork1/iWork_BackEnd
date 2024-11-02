@@ -17,7 +17,6 @@ namespace IWork.Data.Configuration
             builder.Property<Guid>("Id")
                .ValueGeneratedOnAdd();
 
-            // Configura o relacionamento com o usuário (anunciante e contratante)
             builder.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(h => h.AdvertiserId)
@@ -28,20 +27,13 @@ namespace IWork.Data.Configuration
                 .HasForeignKey(h => h.ContractorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configura o relacionamento com HiringItemAdvertisement
             builder.HasMany(h => h.Items)
                 .WithOne()
                 .HasForeignKey(i => i.HiringAdvertisementId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configura outras propriedades
             builder.Property(h => h.ContractDate)
                 .IsRequired();
-            
-            builder.Property(h => h.HiringStatus)
-                .IsRequired()
-                .HasConversion<string>()
-                .HasMaxLength(50);
 
             builder.Property(h => h.AdvertisementTemplate)
                 .IsRequired()

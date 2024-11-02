@@ -136,8 +136,8 @@ namespace IWork.Service.Services
             return new UserDTO
             (
                 Guid.Parse(user.Id),
-                user.UserName,
                 user.CompleteName,
+                user.UserName,
                 user.Email,
                 role,
                 user.IsActive

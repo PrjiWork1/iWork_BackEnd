@@ -13,20 +13,17 @@ namespace IWork.Domain.Commands.HiringAdvertisementCommands
     public class HiringAdvertisementAddCommand : IRequest<bool>
     {
         public HiringAdvertisementAddCommand(Guid advertisementId, string contractorId, 
-            string advertiserId, HiringStatus hiringStatus, 
-            AdvertisementTemplate advertisementTemplate, AdvertisementType advertisementType, 
-            ICollection<HiringItemAdvertisementRequest> items, decimal price, int quantity, decimal totalAmount, bool isActive)
+            string advertiserId, AdvertisementTemplate advertisementTemplate, 
+            AdvertisementType advertisementType, 
+            ICollection<HiringItemAdvertisementRequest> items, decimal price, bool isActive)
         {
             AdvertisementId = advertisementId;
             ContractorId = contractorId;
             AdvertiserId = advertiserId;
-            HiringStatus = hiringStatus;
             AdvertisementTemplate = advertisementTemplate;
             AdvertisementType = advertisementType;
             Items = items;
             Price = price;
-            Quantity = quantity;
-            TotalAmount = totalAmount;
             IsActive = isActive;
         }
 
@@ -34,13 +31,11 @@ namespace IWork.Domain.Commands.HiringAdvertisementCommands
         public Guid AdvertisementId { get; set; }
         public string ContractorId { get; set; }
         public string AdvertiserId { get; set; }
-        public HiringStatus HiringStatus { get; set; }
         public AdvertisementTemplate AdvertisementTemplate { get; set; }
         public AdvertisementType AdvertisementType { get; set; }
         public ICollection<HiringItemAdvertisementRequest> Items { get; set; }
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalAmount { get; set; }
+        //public decimal TotalAmount { get; set; }
         public bool IsActive { get; set; }
     }
 }

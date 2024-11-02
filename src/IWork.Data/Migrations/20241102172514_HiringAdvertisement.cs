@@ -7,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace IWork.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class HiringAdvertisement : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -195,12 +195,10 @@ namespace IWork.Data.Migrations
                     ContractorId = table.Column<string>(type: "varchar(255)", nullable: false),
                     AdvertiserId = table.Column<string>(type: "varchar(255)", nullable: false),
                     ContractDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    HiringStatus = table.Column<int>(type: "int", nullable: false),
-                    AdvertisementTemplate = table.Column<int>(type: "int", nullable: false),
-                    AdvertisementType = table.Column<int>(type: "int", nullable: false),
+                    AdvertisementTemplate = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    AdvertisementType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(5,4)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsActive = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
@@ -229,9 +227,8 @@ namespace IWork.Data.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    UrlBanner = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    UrlBanner = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
                     Type = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    IWorkPro = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -266,9 +263,8 @@ namespace IWork.Data.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
-                    UrlBanner = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    UrlBanner = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
                     Type = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    IWorkPro = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false),
                     CategoryId = table.Column<Guid>(type: "char(36)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -302,7 +298,6 @@ namespace IWork.Data.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     HiringAdvertisementId = table.Column<Guid>(type: "char(36)", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>

@@ -25,7 +25,6 @@ namespace IWork.API.Handlers.AdvertisementHandler
                result.Description,
                result.UrlBanner,
                result.Type,
-               result.IWorkPro,
                result.UserId,
                result.UserName,
                result.CompleteName,

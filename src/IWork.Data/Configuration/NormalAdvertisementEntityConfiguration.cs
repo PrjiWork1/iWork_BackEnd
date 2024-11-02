@@ -27,15 +27,12 @@ namespace IWork.Data.Configuration
                 .HasMaxLength(200);
 
             builder.Property(a => a.UrlBanner)
-                .HasMaxLength(100);
+                .HasMaxLength(200);
 
             builder.Property(a => a.Type)
                .IsRequired()
                .HasConversion<string>()
                .HasMaxLength(50);
-
-            builder.Property(a => a.IWorkPro)
-               .IsRequired();
 
             builder.Property(a => a.IsActive)
                     .IsRequired();

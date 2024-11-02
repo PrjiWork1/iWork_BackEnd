@@ -13,14 +13,13 @@ namespace IWork.Domain.Commands.NormalAdvertisementCommands
     public class NormalAdvertisementAddCommand : IRequest<bool>
     {
         public NormalAdvertisementAddCommand(string title, string description, string urlBanner, 
-            AdvertisementType type, bool iWorkPro, string userId, Guid categoryId, DateTime createdAt, 
+            AdvertisementType type, string userId, Guid categoryId, DateTime createdAt, 
             AdvertisementStatus status, decimal price, bool isActive)
         {
             Title = title;
             Description = description;
             UrlBanner = urlBanner;
             Type = type;
-            IWorkPro = iWorkPro;
             UserId = userId;
             CategoryId = categoryId;
             CreatedAt = createdAt;
@@ -33,7 +32,6 @@ namespace IWork.Domain.Commands.NormalAdvertisementCommands
         public string Description { get; set; }
         public string UrlBanner { get; set; }
         public AdvertisementType Type { get; set; }
-        public bool IWorkPro { get; set; }
         public string UserId { get; set; }
         public Guid CategoryId { get; set; }
         public DateTime CreatedAt { get; set; }

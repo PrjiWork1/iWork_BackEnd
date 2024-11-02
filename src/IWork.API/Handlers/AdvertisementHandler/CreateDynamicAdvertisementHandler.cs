@@ -20,7 +20,6 @@ namespace IWork.API.Handlers.AdvertisementHandler
                 request.Description,
                 request.UrlBanner,
                 request.Type,
-                request.IWorkPro,
                 request.UserId,
                 request.CategoryId,
                 request.IsActive,

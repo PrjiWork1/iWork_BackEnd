@@ -11,7 +11,7 @@ namespace IWork.Domain.DTO
     public class AdvertisementDTO
     {
         public AdvertisementDTO(Guid id, string title, string description, string urlBanner, 
-            AdvertisementType type, bool iWorkPro, string userId, string userName, string completeName,
+            AdvertisementType type, string userId, string userName, string completeName,
             Guid categoryId, string categoryDescription, decimal advertisementRate, DateTime createdAt, 
             decimal price, AdvertisementStatus status, int numberOfSales, 
             ICollection<ItemAdvertisementDTO> itemAdvertisements, bool isActive)
@@ -21,7 +21,6 @@ namespace IWork.Domain.DTO
             Description = description;
             UrlBanner = urlBanner;
             Type = type;
-            IWorkPro = iWorkPro;
             UserId = userId;
             UserName = userName;
             CompleteName = completeName;
@@ -41,7 +40,6 @@ namespace IWork.Domain.DTO
         public string Description { get; set; }
         public string UrlBanner { get; set; }
         public AdvertisementType Type { get; set; }
-        public bool IWorkPro { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string CompleteName { get; set; }

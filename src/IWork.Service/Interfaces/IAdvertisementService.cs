@@ -1,5 +1,7 @@
 ﻿using IWork.Domain.DTO;
+using IWork.Domain.Models;
 using IWork.Domain.Models.Enums;
+using IWork.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
