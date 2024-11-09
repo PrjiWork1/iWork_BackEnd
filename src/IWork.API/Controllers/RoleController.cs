@@ -23,7 +23,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPost("CreateRole")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [AllowAnonymous]
         public async Task<IActionResult> CreateRole(RoleViewModel RoleDto)
         {

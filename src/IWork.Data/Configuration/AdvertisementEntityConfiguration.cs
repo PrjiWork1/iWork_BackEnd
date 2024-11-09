@@ -1,5 +1,4 @@
 ﻿using IWork.Domain.Models;
-using IWork.Domain.Models.IdentityEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -10,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace IWork.Data.Configuration
 {
-    public class DynamicAdvertisementEntityConfiguration : IEntityTypeConfiguration<DynamicAdvertisement>
+    public class AdvertisementEntityConfiguration : IEntityTypeConfiguration<Advertisement>
     {
-        public void Configure(EntityTypeBuilder<DynamicAdvertisement> builder)
+        public void Configure(EntityTypeBuilder<Advertisement> builder)
         {
-           
+            builder.ToTable("Advertisement");
+
             builder.Property<Guid>("Id")
-                   .ValueGeneratedOnAdd();
+                 .ValueGeneratedOnAdd();
 
             builder.Property(a => a.Title)
                 .IsRequired()
@@ -48,17 +48,20 @@ namespace IWork.Data.Configuration
             .IsRequired()
             .HasConversion<string>()
             .HasMaxLength(50);
-            
+
             builder.Property(a => a.NumberOfSales)
                 .IsRequired();
 
+            builder.Property(a => a.Price)
+                 .HasColumnType("decimal(18,2)");
+
             builder.HasOne(a => a.User)
-                .WithMany(u => u.DynamicAdvertisements)
+                .WithMany(u => u.Advertisement)
                 .HasForeignKey(a => a.UserId)
                 .IsRequired();
 
             builder.HasOne(a => a.Category)
-                .WithMany(c => c.DynamicAdvertisements)
+                .WithMany(c => c.Advertisement)
                 .HasForeignKey(a => a.CategoryId)
                 .IsRequired();
         }

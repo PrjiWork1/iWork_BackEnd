@@ -18,18 +18,7 @@ namespace IWork.API.Handlers.UserHandler
         public async Task<UserViewModel> Handle(GetByEmailUserQuery request, CancellationToken cancellationToken)
         {
             var result = await _userService.GetByEmailAsync(request.Email);
-
-            var user = new UserViewModel
-                (
-                    result.Id,
-                    result.CompleteName,
-                    result.UserName,
-                    result.Email,
-                    result.Role,
-                    result.IsActive
-                );
-            
-            return user;
+            return result;
         }
     }
 }

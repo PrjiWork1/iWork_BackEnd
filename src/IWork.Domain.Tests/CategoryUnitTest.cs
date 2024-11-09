@@ -14,9 +14,9 @@ namespace IWork.Domain.Tests
         [Fact]
         public void WhenCategoryName_LenghtMoreThan_DomainException()
         {
-            Action category = () => new Category("DescriptionTestLongerThan20CharactersUnitTestForDomainException", true);
+            Action category = () => new Category("DescriptionTestLongerThan30CharactersUnitTestForDomainException", true);
             category.Should().Throw<DomainExceptionValidations>()
-                .WithMessage("Description is too long. Maximum length is 20 characters.");
+                .WithMessage("Description is too long. Maximum length is 30 characters.");
         }
 
         [Fact]

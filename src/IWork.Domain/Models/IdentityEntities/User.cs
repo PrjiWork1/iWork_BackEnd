@@ -13,8 +13,7 @@ namespace IWork.Domain.Models.IdentityEntities
         public string? CPF { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<UserRole> UserRoles { get; set; }
-        public ICollection<DynamicAdvertisement> DynamicAdvertisements { get; set; } 
-        public ICollection<NormalAdvertisement> NormalAdvertisements { get; set; } 
+        public ICollection<Advertisement> Advertisement { get; set; } 
         public bool IsActive { get; set; }
     }
 }

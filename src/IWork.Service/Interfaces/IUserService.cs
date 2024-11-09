@@ -1,5 +1,4 @@
-﻿using IWork.Domain.DTO;
-using IWork.Domain.Models.IdentityEntities;
+﻿using IWork.Domain.Models.IdentityEntities;
 using IWork.Domain.Requests;
 using IWork.Domain.ViewModels;
 using System;
@@ -13,7 +12,7 @@ namespace IWork.Service.Interfaces
     public interface IUserService
     {
         Task<UserViewModel> RegisterAsync(RegisterRequest request);
-        Task<UserDTO> GetByEmailAsync(string email);
+        Task<UserViewModel> GetByEmailAsync(string email);
         Task<string> LoginAsync(LoginRequest request);
         Task<bool> AssignRoleAsync(string userId, string role);
     }

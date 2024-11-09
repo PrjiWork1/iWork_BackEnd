@@ -24,6 +24,7 @@ namespace IWork.Service.Services
             await Save();
             return true;
         }
+
         public async Task<bool> Delete(Guid id)
         {
             var entity = await _context.Set<T>().FindAsync(id);
@@ -36,7 +37,7 @@ namespace IWork.Service.Services
             var isActiveProperty = entity.GetType().GetProperty("IsActive");
             if (isActiveProperty == null)
             {
-                throw new InvalidOperationException("A propriedade 'IsActive' não foi encontrada na entidade.");
+                throw new InvalidOperationException("The property 'IsActive' was not found on the entity.");
             }
 
             

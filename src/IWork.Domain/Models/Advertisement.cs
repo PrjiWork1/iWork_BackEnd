@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 
 namespace IWork.Domain.Models
 {
-    public abstract class Advertisement
+    public class Advertisement
     {
         public Advertisement(string title, string description, string urlBanner,
-           AdvertisementType type, string userId, Guid categoryId,
-           bool isActive, DateTime createdAt, AdvertisementStatus status, int numberOfSales)
+           AdvertisementType type, string userId, Guid categoryId, bool isActive,
+           DateTime createdAt, AdvertisementStatus status, int numberOfSales,
+           decimal price)
         {
             ValidateAndSetValues(title, description, urlBanner, type, userId,
-                categoryId, isActive, createdAt, status, numberOfSales);
+                categoryId, isActive, createdAt, status, numberOfSales, price);
+
+            Items = new List<ItemAdvertisement>();
         }
 
-        public Guid Id { get;  set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string UrlBanner { get; set; }
@@ -32,18 +35,21 @@ namespace IWork.Domain.Models
         public decimal AdvertisementRate { get; set; }
         public DateTime CreatedAt { get; set; }
         public AdvertisementStatus Status { get; set; }
-        public int NumberOfSales {  get; set; } 
+        public decimal Price { get; set; }
+        public ICollection<ItemAdvertisement> Items { get; set; }
+        public int NumberOfSales { get; set; }
         public bool IsActive { get; set; }
 
         private void ValidateAndSetValues(string title, string description, string urlBanner,
-            AdvertisementType type, string userId, Guid categoryId, bool isActive, 
-            DateTime createdAt, AdvertisementStatus status, int numberOfSales)
+            AdvertisementType type, string userId, Guid categoryId, bool isActive,
+            DateTime createdAt, AdvertisementStatus status, int numberOfSales, decimal price)
         {
             ValidateTitle(title);
             ValidateDescription(description);
             validateUrlBanner(urlBanner);
             ValidateUserId(userId);
             ValidateCategoryId(categoryId);
+            ValidatePrice(price);
 
             Title = title;
             Description = description;
@@ -53,6 +59,7 @@ namespace IWork.Domain.Models
             CategoryId = categoryId;
             CreatedAt = createdAt;
             Status = status;
+            Price = price;
             NumberOfSales = numberOfSales;
             IsActive = true;
 
@@ -89,6 +96,11 @@ namespace IWork.Domain.Models
         private void ValidateCategoryId(Guid categoryId)
         {
             DomainExceptionValidations.ExceptionHandler(categoryId == Guid.Empty, "Invalid CategoryId. CategoryId is required!");
+        }
+
+        private void ValidatePrice(decimal price)
+        {
+            DomainExceptionValidations.ExceptionHandler(price < 0, "Invalid Price. Price must be greater than zero!");
         }
 
         public decimal CalculateAdvertisementRate()

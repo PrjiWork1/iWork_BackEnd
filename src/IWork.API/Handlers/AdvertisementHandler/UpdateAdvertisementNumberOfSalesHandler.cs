@@ -8,17 +8,17 @@ namespace IWork.API.Handlers.AdvertisementHandler
     public class UpdateAdvertisementNumberOfSalesHandler : IRequestHandler<UpdateAdvertisementNumberOfSalesCommand, bool>
     {
         private readonly IAdvertisementService _advertisementService;
-        public UpdateAdvertisementNumberOfSalesHandler(IAdvertisementService advertisementService)
+        public UpdateAdvertisementNumberOfSalesHandler(IAdvertisementService service)
         {
-            _advertisementService = advertisementService;
+            _advertisementService = service;
         }
-
         public async Task<bool> Handle(UpdateAdvertisementNumberOfSalesCommand request, CancellationToken cancellationToken)
         {
-            var result = await _advertisementService.UpdateAdvertisementNumberOfSales(request.Id, request.AdvertisementNumberOfSales.NumberOfSales);
-
+            var advertisement = await _advertisementService.GetById(request.Id);
+            if (advertisement == null) return false;
+            advertisement.NumberOfSales = request.AdvertisementNumberOfSales.NumberOfSales;
+            var result = await _advertisementService.Update(advertisement.Id);
             if (result) return true;
-
             return false;
         }
     }

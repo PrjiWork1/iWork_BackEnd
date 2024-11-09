@@ -24,7 +24,7 @@ namespace IWork.Data.Configuration
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
 
-            builder.HasOne(i => i.DynamicAdvertisement)
+            builder.HasOne(i => i.Advertisement)
                .WithMany(d => d.Items)
                .HasForeignKey(i => i.DynamicAdvertisementId);
         }

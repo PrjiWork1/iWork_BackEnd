@@ -9,10 +9,9 @@ namespace IWork.API.Handlers.AdvertisementHandler
     public class GetByIdAdvertisementQueryHandler : IRequestHandler<GetByIdAdvertisementQuery, AdvertisementViewModel>
     {
         private readonly IAdvertisementService _advertisementService;
-
-        public GetByIdAdvertisementQueryHandler(IAdvertisementService advertisementService)
+        public GetByIdAdvertisementQueryHandler(IAdvertisementService service)
         {
-            _advertisementService = advertisementService;
+            _advertisementService = service;
         }
 
         public async Task<AdvertisementViewModel> Handle(GetByIdAdvertisementQuery request, CancellationToken cancellationToken)
@@ -26,16 +25,17 @@ namespace IWork.API.Handlers.AdvertisementHandler
                result.UrlBanner,
                result.Type,
                result.UserId,
-               result.UserName,
-               result.CompleteName,
+               result.User.UserName,
+               result.User.CompleteName,
+               result.User.Email,
                result.CategoryId,
-               result.CategoryDescription,
+               result.Category.Description,
                result.AdvertisementRate,
                result.CreatedAt,
                result.Price,
                result.Status,
                result.NumberOfSales,
-               result.itemAdvertisements?.Select(item => new ItemAdvertisementViewModel(
+               result.Items?.Select(item => new ItemAdvertisementViewModel(
                    item.Name,
                    item.Price
                )).ToList(),

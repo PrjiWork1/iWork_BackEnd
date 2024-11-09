@@ -19,7 +19,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPost("CreateHiringAdvertisement")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Post([FromBody] HiringAdvertisementAddCommand command)
         {
             var response = await _mediator.Send(command);

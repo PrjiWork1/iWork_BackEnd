@@ -1,5 +1,4 @@
 ﻿using IWork.Data.Context;
-using IWork.Domain.DTO;
 using IWork.Domain.Models.IdentityEntities;
 using IWork.Domain.Requests;
 using IWork.Domain.ViewModels;
@@ -122,7 +121,7 @@ namespace IWork.Service.Services
             return result.Succeeded;
         }
 
-        public async Task<UserDTO> GetByEmailAsync(string email)
+        public async Task<UserViewModel> GetByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -130,18 +129,17 @@ namespace IWork.Service.Services
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            var role = roles.FirstOrDefault();
+            var role = roles.FirstOrDefault() ?? "No Role"; 
 
-
-            return new UserDTO
-            (
-                Guid.Parse(user.Id),
+            return new UserViewModel(
+                Guid.Parse(user.Id),  
                 user.CompleteName,
                 user.UserName,
                 user.Email,
                 role,
                 user.IsActive
             );
+
         }
     }
 }

@@ -23,17 +23,16 @@ namespace IWork.Domain.Models
         public string Description { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<NormalAdvertisement> NormalAdvertisements { get; set; } 
-        public ICollection<DynamicAdvertisement> DynamicAdvertisements { get; set; } 
+        public ICollection<Advertisement> Advertisement { get; set; }
 
         private void ValidateDescription(string description)
         {
             if (string.IsNullOrEmpty(description))
                 DomainExceptionValidations.ExceptionHandler(true, "Invalid Description. Description is required!");
 
-            if (description.Length > 20)
+            if (description.Length > 30)
             {
-                throw new ArgumentException("Description is too long. Maximum length is 20 characters.", nameof(description));
+                throw new ArgumentException("Description is too long. Maximum length is 30 characters.", nameof(description));
             }
 
             if (description.Length < 3)

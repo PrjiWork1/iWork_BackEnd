@@ -20,7 +20,7 @@ namespace IWork.Data.Configuration
 
             builder.Property(c => c.Description)
                    .IsRequired()
-                   .HasMaxLength(20);
+                   .HasMaxLength(30);
         }
     }
 }

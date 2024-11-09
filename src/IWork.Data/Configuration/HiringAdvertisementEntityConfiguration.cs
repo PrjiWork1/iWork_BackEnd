@@ -27,6 +27,11 @@ namespace IWork.Data.Configuration
                 .HasForeignKey(h => h.ContractorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne<Advertisement>()
+                .WithMany()
+                .HasForeignKey(h => h.AdvertisementId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasMany(h => h.Items)
                 .WithOne()
                 .HasForeignKey(i => i.HiringAdvertisementId)

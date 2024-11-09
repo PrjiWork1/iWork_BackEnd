@@ -2,6 +2,7 @@ using Azure.Storage.Blobs;
 using IWork.API.Handlers.UserHandler;
 using IWork.Data.Context;
 using IWork.Domain.Commands.UserCommands;
+using IWork.Domain.Models;
 using IWork.Domain.Models.IdentityEntities;
 using IWork.Domain.ViewModels;
 using IWork.Service.Interfaces;
@@ -68,11 +69,9 @@ options.UseMySQL(builder.Configuration.GetConnectionString("DefaultContext")));
 
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>)); 
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<CategoryService>();
-builder.Services.AddScoped<NormalAdvertisementService>();
-builder.Services.AddScoped<DynamicAdvertisementService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
-builder.Services.AddScoped<HiringAdvertisementService>();
+builder.Services.AddScoped<IHiringAdvertisementService, HiringAdvertisementService>();
 
 
 builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("AzureBlobStorage")));

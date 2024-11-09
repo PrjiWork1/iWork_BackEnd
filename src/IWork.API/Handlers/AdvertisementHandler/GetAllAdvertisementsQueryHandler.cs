@@ -1,6 +1,4 @@
-﻿using IWork.Domain.DTO;
-using IWork.Domain.Queries.AdvertisementQuery;
-using IWork.Domain.Validations;
+﻿using IWork.Domain.Queries.AdvertisementQuery;
 using IWork.Domain.ViewModels;
 using IWork.Service.Interfaces;
 using IWork.Service.Services;
@@ -11,10 +9,9 @@ namespace IWork.API.Handlers.AdvertisementHandler
     public class GetAllAdvertisementsQueryHandler : IRequestHandler<GetAllAdvertisementsQuery, List<AdvertisementViewModel>>
     {
         private readonly IAdvertisementService _advertisementService;
-
-        public GetAllAdvertisementsQueryHandler(IAdvertisementService advertisementService)
+        public GetAllAdvertisementsQueryHandler(IAdvertisementService service)
         {
-            _advertisementService = advertisementService;
+            _advertisementService = service;
         }
 
         public async Task<List<AdvertisementViewModel>> Handle(GetAllAdvertisementsQuery request, CancellationToken cancellationToken)
@@ -28,16 +25,17 @@ namespace IWork.API.Handlers.AdvertisementHandler
                 a.UrlBanner,
                 a.Type,
                 a.UserId,
-                a.UserName,
-                a.CompleteName,
+                a.User.UserName,
+                a.User.CompleteName,
+                a.User.Email,
                 a.CategoryId,
-                a.CategoryDescription,
+                a.Category.Description,
                 a.AdvertisementRate,
                 a.CreatedAt,
                 a.Price,
                 a.Status,
                 a.NumberOfSales,
-                a.itemAdvertisements?.Select(item => new ItemAdvertisementViewModel(
+                a.Items?.Select(item => new ItemAdvertisementViewModel(
                     item.Name,
                     item.Price
                 )).ToList(),
@@ -45,7 +43,6 @@ namespace IWork.API.Handlers.AdvertisementHandler
             )).ToList() ?? new List<AdvertisementViewModel>();
 
             return advertisement;
-
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using IWork.Domain.Commands.CategoryCommands;
+using IWork.Domain.Models;
 using IWork.Service.Interfaces;
 using IWork.Service.Services;
 using MediatR;
@@ -7,9 +8,9 @@ namespace IWork.API.Handlers.CategoryHandler
 {
     public class UpdateCategoryHandler : IRequestHandler<CategoryUpdateCommand, bool>
     {
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
-        public UpdateCategoryHandler(CategoryService categoryService)
+        public UpdateCategoryHandler(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }

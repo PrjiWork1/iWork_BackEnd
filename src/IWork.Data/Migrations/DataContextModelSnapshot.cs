@@ -19,26 +19,7 @@ namespace IWork.Data.Migrations
                 .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("IWork.Domain.Models.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Category", (string)null);
-                });
-
-            modelBuilder.Entity("IWork.Domain.Models.DynamicAdvertisement", b =>
+            modelBuilder.Entity("IWork.Domain.Models.Advertisement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,6 +44,9 @@ namespace IWork.Data.Migrations
 
                     b.Property<int>("NumberOfSales")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -94,7 +78,26 @@ namespace IWork.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DynamicAdvertisement");
+                    b.ToTable("Advertisement", (string)null);
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
@@ -140,6 +143,8 @@ namespace IWork.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdvertisementId");
 
                     b.HasIndex("AdvertiserId");
 
@@ -325,68 +330,6 @@ namespace IWork.Data.Migrations
                     b.ToTable("ItemAdvertisement");
                 });
 
-            modelBuilder.Entity("IWork.Domain.Models.NormalAdvertisement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<decimal>("AdvertisementRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("NumberOfSales")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("UrlBanner")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("NormalAdvertisement");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -474,16 +417,16 @@ namespace IWork.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("IWork.Domain.Models.DynamicAdvertisement", b =>
+            modelBuilder.Entity("IWork.Domain.Models.Advertisement", b =>
                 {
                     b.HasOne("IWork.Domain.Models.Category", "Category")
-                        .WithMany("DynamicAdvertisements")
+                        .WithMany("Advertisement")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("IWork.Domain.Models.IdentityEntities.User", "User")
-                        .WithMany("DynamicAdvertisements")
+                        .WithMany("Advertisement")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -495,6 +438,12 @@ namespace IWork.Data.Migrations
 
             modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
                 {
+                    b.HasOne("IWork.Domain.Models.Advertisement", null)
+                        .WithMany()
+                        .HasForeignKey("AdvertisementId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("IWork.Domain.Models.IdentityEntities.User", null)
                         .WithMany()
                         .HasForeignKey("AdvertiserId")
@@ -538,32 +487,13 @@ namespace IWork.Data.Migrations
 
             modelBuilder.Entity("IWork.Domain.Models.ItemAdvertisement", b =>
                 {
-                    b.HasOne("IWork.Domain.Models.DynamicAdvertisement", "DynamicAdvertisement")
+                    b.HasOne("IWork.Domain.Models.Advertisement", "Advertisement")
                         .WithMany("Items")
                         .HasForeignKey("DynamicAdvertisementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DynamicAdvertisement");
-                });
-
-            modelBuilder.Entity("IWork.Domain.Models.NormalAdvertisement", b =>
-                {
-                    b.HasOne("IWork.Domain.Models.Category", "Category")
-                        .WithMany("NormalAdvertisements")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IWork.Domain.Models.IdentityEntities.User", "User")
-                        .WithMany("NormalAdvertisements")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("User");
+                    b.Navigation("Advertisement");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -602,16 +532,14 @@ namespace IWork.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IWork.Domain.Models.Category", b =>
-                {
-                    b.Navigation("DynamicAdvertisements");
-
-                    b.Navigation("NormalAdvertisements");
-                });
-
-            modelBuilder.Entity("IWork.Domain.Models.DynamicAdvertisement", b =>
+            modelBuilder.Entity("IWork.Domain.Models.Advertisement", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("IWork.Domain.Models.Category", b =>
+                {
+                    b.Navigation("Advertisement");
                 });
 
             modelBuilder.Entity("IWork.Domain.Models.HiringAdvertisement", b =>
@@ -626,9 +554,7 @@ namespace IWork.Data.Migrations
 
             modelBuilder.Entity("IWork.Domain.Models.IdentityEntities.User", b =>
                 {
-                    b.Navigation("DynamicAdvertisements");
-
-                    b.Navigation("NormalAdvertisements");
+                    b.Navigation("Advertisement");
 
                     b.Navigation("UserRoles");
                 });

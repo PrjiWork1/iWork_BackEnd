@@ -1,5 +1,7 @@
-﻿using IWork.Domain.Queries.CategoryQuery;
+﻿using IWork.Domain.Models;
+using IWork.Domain.Queries.CategoryQuery;
 using IWork.Domain.ViewModels;
+using IWork.Service.Interfaces;
 using IWork.Service.Services;
 using MediatR;
 
@@ -7,9 +9,9 @@ namespace IWork.API.Handlers.CategoryHandler
 {
     public class GetAllCategoriesQueryHandler : IRequestHandler<GetAllCategoriesQuery, List<CategoryViewModel>>
     {
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
-        public GetAllCategoriesQueryHandler(CategoryService categoryService)
+        public GetAllCategoriesQueryHandler(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }

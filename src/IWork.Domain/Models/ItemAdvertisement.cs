@@ -20,7 +20,7 @@ namespace IWork.Domain.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public DynamicAdvertisement DynamicAdvertisement { get; set; }
+        public Advertisement Advertisement { get; set; }
 
         private void ValidateAndSetValues(string name, decimal price)
         {

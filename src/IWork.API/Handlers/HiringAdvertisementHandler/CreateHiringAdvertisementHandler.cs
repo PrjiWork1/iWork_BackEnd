@@ -2,15 +2,14 @@
 using IWork.Domain.Models;
 using IWork.Domain.Models.Enums;
 using IWork.Service.Interfaces;
-using IWork.Service.Services;
 using MediatR;
 
 namespace IWork.API.Handlers.HiringAdvertisementHandler
 {
     public class CreateHiringAdvertisementHandler : IRequestHandler<HiringAdvertisementAddCommand, bool>
     {
-        private readonly HiringAdvertisementService _service;
-        public CreateHiringAdvertisementHandler(HiringAdvertisementService advertisementService)
+        private readonly IHiringAdvertisementService _service;
+        public CreateHiringAdvertisementHandler(IHiringAdvertisementService advertisementService)
         {
             _service = advertisementService;
         }

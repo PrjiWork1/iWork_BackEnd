@@ -11,10 +11,10 @@ namespace IWork.Domain.ViewModels
 {
     public class AdvertisementViewModel
     {
-        public AdvertisementViewModel(Guid id, string title, string description, string urlBanner, 
-            AdvertisementType type, string userId, string userName, string completeName, 
-            Guid categoryId, string categoryDescription, decimal advertisementRate, DateTime createdAt, 
-            decimal price, AdvertisementStatus status, int numberOfSales, 
+        public AdvertisementViewModel(Guid id, string title, string description, string urlBanner,
+            AdvertisementType type, string userId, string userName, string completeName, string userEmail,
+            Guid categoryId, string categoryDescription, decimal advertisementRate, DateTime createdAt,
+            decimal price, AdvertisementStatus status, int numberOfSales,
             ICollection<ItemAdvertisementViewModel> itemAdvertisements, bool isActive)
         {
             Id = id;
@@ -25,6 +25,7 @@ namespace IWork.Domain.ViewModels
             UserId = userId;
             UserName = userName;
             CompleteName = completeName;
+            UserEmail = userEmail;
             CategoryId = categoryId;
             CategoryDescription = categoryDescription;
             AdvertisementRate = advertisementRate;
@@ -44,6 +45,7 @@ namespace IWork.Domain.ViewModels
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string CompleteName { get; set; }
+        public string UserEmail { get; set; }
         public Guid CategoryId { get; set; }
         public string CategoryDescription { get; set; }
         public decimal AdvertisementRate { get; set; }

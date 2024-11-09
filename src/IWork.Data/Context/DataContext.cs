@@ -23,8 +23,7 @@ namespace IWork.Data.Context
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Category> Category { get; set; }
-        public DbSet<NormalAdvertisement> NormalAdvertisement { get; set; }
-        public DbSet<DynamicAdvertisement> DynamicAdvertisement { get; set; }
+        public DbSet<Advertisement> Advertisement { get; set; }
         public DbSet<ItemAdvertisement> ItemAdvertisement{ get; set; }
         public DbSet<HiringAdvertisement> HiringAdvertisements { get; set; } 
         public DbSet<HiringItemAdvertisement> HiringItemAdvertisements { get; set; }
@@ -35,8 +34,7 @@ namespace IWork.Data.Context
 
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new NormalAdvertisementEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new DynamicAdvertisementEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new AdvertisementEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ItemAdvertisementEntityConfiguration());
             modelBuilder.ApplyConfiguration(new HiringAdvertisementEntityConfiguration());
             modelBuilder.ApplyConfiguration(new HiringItemAdvertisementEntityConfiguration());

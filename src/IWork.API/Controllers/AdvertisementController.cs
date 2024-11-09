@@ -27,7 +27,7 @@ namespace IWork.API.Controllers
         [HttpGet("GetAllAdvertisements")]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll(bool isAdmin)
-        { 
+        {
             var query = new GetAllAdvertisementsQuery(isAdmin);
             var result = await _mediator.Send(query);
 
@@ -55,8 +55,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPost("CreateNormalAdvertisement")]
-        [Authorize(Roles = "Admin, User")]
-        [AllowAnonymous]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> AddNormalAdvertisement([FromBody] NormalAdvertisementAddCommand command)
         {
             var response = await _mediator.Send(command);
@@ -65,8 +64,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPost("CreateDynamicAdvertisement")]
-        [Authorize(Roles = "Admin, User")]
-        [AllowAnonymous]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> AddDynamicAdvertisement([FromBody] DynamicAdvertisementAddCommand command)
         {
             var response = await _mediator.Send(command);
@@ -75,17 +73,17 @@ namespace IWork.API.Controllers
         }
 
         [HttpPut("UpdateStatusAdvertisement{Id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateStatusAdvertisement(Guid Id, AdvertisementStatusRequest command)
         {
             var advertisement = new UpdateAdvertisementStatusCommand(Id, command);
-            var response  = await _mediator.Send(advertisement);
+            var response = await _mediator.Send(advertisement);
             if (!response) return NotFound("Anúncio não encontrado");
             return Ok(response);
         }
 
         [HttpPut("UpdateNumberOfSalesAdvertisement{Id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> UpdateNumberOfSalesAdvertisement(Guid Id, AdvertisementNumberOfSalesRequest command)
         {
             var advertisement = new UpdateAdvertisementNumberOfSalesCommand(Id, command);

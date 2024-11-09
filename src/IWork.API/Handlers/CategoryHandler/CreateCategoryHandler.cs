@@ -8,9 +8,9 @@ namespace IWork.API.Handlers.CategoryHandler
 {
     public class CreateCategoryHandler : IRequestHandler<CategoryAddCommand, bool>
     {
-        private readonly CategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
 
-        public CreateCategoryHandler(CategoryService categoryService)
+        public CreateCategoryHandler(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
