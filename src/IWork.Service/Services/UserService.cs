@@ -54,9 +54,9 @@ namespace IWork.Service.Services
             return new UserViewModel
             (
                 Guid.Parse(user.Id),
+                user.CompleteName,
                 user.UserName,
                 user.Email,
-                user.CompleteName,
                 request.Role,
                 user.IsActive
             );

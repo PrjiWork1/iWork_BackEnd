@@ -1,4 +1,5 @@
 using Azure.Storage.Blobs;
+using DotNetEnv;
 using IWork.API.Handlers.UserHandler;
 using IWork.Data.Context;
 using IWork.Domain.Commands.UserCommands;
@@ -23,6 +24,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+Env.Load();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -73,8 +76,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
 builder.Services.AddScoped<IHiringAdvertisementService, HiringAdvertisementService>();
 
+var blobStorageConnectionString = Environment.GetEnvironmentVariable("AzureBlobStorage");
 
-builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("AzureBlobStorage")));
+builder.Services.AddSingleton(x => new BlobServiceClient(blobStorageConnectionString));
 builder.Services.AddTransient<IBlobService, BlobService>();
 
 

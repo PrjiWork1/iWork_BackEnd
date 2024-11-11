@@ -85,7 +85,7 @@ namespace IWork.Domain.Models
         private void validateUrlBanner(string urlBanner)
         {
             if (string.IsNullOrEmpty(urlBanner))
-                DomainExceptionValidations.ExceptionHandler(true, "Invalid title. Title is required!");
+                DomainExceptionValidations.ExceptionHandler(true, "Invalid urlBanner. urlBanner is required!");
         }
 
         private void ValidateUserId(string userId)

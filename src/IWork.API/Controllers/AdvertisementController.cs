@@ -73,7 +73,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPut("UpdateStatusAdvertisement{Id}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> UpdateStatusAdvertisement(Guid Id, AdvertisementStatusRequest command)
         {
             var advertisement = new UpdateAdvertisementStatusCommand(Id, command);
@@ -83,7 +83,7 @@ namespace IWork.API.Controllers
         }
 
         [HttpPut("UpdateNumberOfSalesAdvertisement{Id}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> UpdateNumberOfSalesAdvertisement(Guid Id, AdvertisementNumberOfSalesRequest command)
         {
             var advertisement = new UpdateAdvertisementNumberOfSalesCommand(Id, command);
