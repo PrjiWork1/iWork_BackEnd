@@ -25,16 +25,18 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                     request.AdvertisementId,
                     request.ContractorId,
                     request.AdvertiserId,
+                    request.PreferenceId,
                     request.AdvertisementTemplate,
                     request.AdvertisementType,
+                    request.HiringStatus,
+                    request.Description,
                     request.Price,
                     0,
                     0, 
                     request.IsActive
                 );
 
-                // Calcula o total para um anúncio Normal
-                hiringAdvertisement.TotalAmount = hiringAdvertisement.CalculateTotalWithRate();
+                hiringAdvertisement.TotalAmount = hiringAdvertisement.CalculateTotal();
 
             }
             else
@@ -43,8 +45,11 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                     request.AdvertisementId,
                     request.ContractorId,
                     request.AdvertiserId,
+                    request.PreferenceId,   
                     request.AdvertisementTemplate,
                     request.AdvertisementType,
+                    request.HiringStatus,   
+                    request.Description,
                     0,
                     0,
                     0, 
@@ -56,11 +61,12 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
                     foreach (var item in request.Items)
                     {
                         var hiringItem = new HiringItemAdvertisement(item.Name, item.Price);
+                        ValidateItems(hiringAdvertisement, hiringItem);
                         hiringAdvertisement.Items.Add(hiringItem); 
                     }
 
                     
-                    hiringAdvertisement.TotalAmount = hiringAdvertisement.CalculateTotalWithRate();
+                    hiringAdvertisement.TotalAmount = hiringAdvertisement.CalculateTotal();
                 }
             }
 
@@ -71,5 +77,12 @@ namespace IWork.API.Handlers.HiringAdvertisementHandler
             return false;
         }
 
+        public void ValidateItems(HiringAdvertisement hiringAdvertisement, HiringItemAdvertisement item)
+        {
+            if (hiringAdvertisement.Items.Any(i => i.Name == item.Name && i.Price == item.Price))
+            {
+                throw new Exception("O item já existe na contratação do anúncio.");
+            }
+        }
     }
 }

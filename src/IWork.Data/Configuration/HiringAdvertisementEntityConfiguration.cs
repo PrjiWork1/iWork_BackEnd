@@ -32,6 +32,13 @@ namespace IWork.Data.Configuration
                 .HasForeignKey(h => h.AdvertisementId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Property(h => h.PreferenceId)
+               .HasMaxLength(60);
+            
+            builder.Property(h => h.Description)
+                .IsRequired()
+                .HasMaxLength(200);
+
             builder.HasMany(h => h.Items)
                 .WithOne()
                 .HasForeignKey(i => i.HiringAdvertisementId)
@@ -49,6 +56,11 @@ namespace IWork.Data.Configuration
                 .IsRequired()
                 .HasConversion<string>()
                 .HasMaxLength(50);
+
+            builder.Property(h => h.HiringStatus)
+               .IsRequired()
+               .HasConversion<string>()
+               .HasMaxLength(50);
 
             builder.Property(h => h.Price)
                 .HasColumnType("decimal(18,2)");

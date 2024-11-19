@@ -8,9 +8,8 @@ namespace IWork.Domain.Models.Enums
 {
     public enum HiringStatus
     {
-        Pending, 
-        InProgress, 
-        Completed,
-        Canceled
+        Success,
+        Failure,
+        Pending
     }
 }

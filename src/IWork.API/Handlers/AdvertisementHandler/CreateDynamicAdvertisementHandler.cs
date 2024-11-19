@@ -53,7 +53,7 @@ namespace IWork.API.Handlers.AdvertisementHandler
         {
            if (advertisement.Items.Any(i => i.Name == item.Name && i.Price == item.Price))
            {
-                throw new Exception("Item already exists in the advertisement.");
+                throw new Exception("O item já existe no anúncio.");
            }
         }
     }

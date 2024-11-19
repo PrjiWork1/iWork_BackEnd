@@ -233,6 +233,7 @@ namespace IWork.Data.Migrations
                     ContractDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     AdvertisementTemplate = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     AdvertisementType = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AdvertisementRate = table.Column<decimal>(type: "decimal(5,4)", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
