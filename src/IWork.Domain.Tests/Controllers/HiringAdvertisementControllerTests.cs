@@ -42,7 +42,7 @@ namespace IWork.Domain.Tests.Controllers
         [Fact]
         public async Task Post_ShouldReturnCreatedAtRoute_WhenResponseIsTrue()
         {
-            // Arrange
+            
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
                 "contractorId",
@@ -58,17 +58,17 @@ namespace IWork.Domain.Tests.Controllers
                 .Setup(m => m.Send(It.IsAny<HiringAdvertisementAddCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(true);
 
-            // Act
+            
             var response = await _controller.Post(command);
 
-            // Assert
+            
             response.Should().BeOfType<CreatedAtRouteResult>();
         }
 
         [Fact]
         public async Task Post_ShouldReturnBadRequest_WhenResponseIsFalse()
         {
-            // Arrange
+            
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
                 "contractorId",
@@ -84,10 +84,10 @@ namespace IWork.Domain.Tests.Controllers
                 .Setup(m => m.Send(It.IsAny<HiringAdvertisementAddCommand>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(false);
 
-            // Act
+            
             var response = await _controller.Post(command);
 
-            // Assert
+            
             response.Should().BeOfType<BadRequestResult>();
         }
     }
