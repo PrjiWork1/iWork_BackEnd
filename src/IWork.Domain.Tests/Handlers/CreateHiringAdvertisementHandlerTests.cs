@@ -31,10 +31,13 @@ namespace IWork.Domain.Tests.Handlers
         {
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
                 AdvertisementTemplate.Normal,
                 AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Handle_ShouldCreateNormalHiringAdvertisementSuccessfully",
                 null,
                 5000.0m,
                 true
@@ -53,10 +56,13 @@ namespace IWork.Domain.Tests.Handlers
         {
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
                 AdvertisementTemplate.Dynamic,
                 AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Handle_ShouldCreateDynamicHiringAdvertisementSuccessfully",
                 new List<HiringItemAdvertisementRequest>
                 {
                     new HiringItemAdvertisementRequest("Item1", 100),
@@ -80,11 +86,14 @@ namespace IWork.Domain.Tests.Handlers
         {
 
             var command = new HiringAdvertisementAddCommand(
-                Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
+               Guid.NewGuid(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
                 AdvertisementTemplate.Dynamic,
                 AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Handle_ShouldCreateDynamicHiringAdvertisementWithNullItems",
                 null,
                 0,
                 true
@@ -104,11 +113,14 @@ namespace IWork.Domain.Tests.Handlers
         {
 
             var command = new HiringAdvertisementAddCommand(
-                Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
+              Guid.NewGuid(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
                 AdvertisementTemplate.Normal,
                 AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Handle_ShouldReturnFalseWhenServiceFailsToAddAdvertisement",
                 null,
                 5000.0m,
                 true

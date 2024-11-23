@@ -45,10 +45,13 @@ namespace IWork.Domain.Tests.Controllers
             
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
-                new AdvertisementTemplate(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                AdvertisementTemplate.Normal,
                 AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Post_ShouldReturnCreatedAtRoute_WhenResponseIsTrue",
                 new List<HiringItemAdvertisementRequest>(),
                 5000.0m,
                 true
@@ -71,10 +74,13 @@ namespace IWork.Domain.Tests.Controllers
             
             var command = new HiringAdvertisementAddCommand(
                 Guid.NewGuid(),
-                "contractorId",
-                "advertiserId",
-                new AdvertisementTemplate(),
-                AdvertisementType.Silver,
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                Guid.NewGuid().ToString(),
+                AdvertisementTemplate.Normal,
+                AdvertisementType.Gold,
+                HiringStatus.Success,
+                "Post_ShouldReturnBadRequest_WhenResponseIsFalse",
                 new List<HiringItemAdvertisementRequest>(),
                 5000.0m,
                 true
