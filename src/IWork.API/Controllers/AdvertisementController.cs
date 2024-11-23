@@ -31,7 +31,7 @@ namespace IWork.API.Controllers
             var query = new GetAllAdvertisementsQuery(isAdmin);
             var result = await _mediator.Send(query);
 
-            if (result == null)
+            if (result == null || !result.Any())
             {
                 return NoContent();
             }
