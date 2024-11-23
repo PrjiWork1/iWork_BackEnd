@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IWork.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241117232359_InitialDB")]
+    [Migration("20241123122720_InitialDB")]
     partial class InitialDB
     {
         /// <inheritdoc />
@@ -141,8 +141,18 @@ namespace IWork.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)");
 
+                    b.Property<string>("HiringStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("PreferenceId")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");

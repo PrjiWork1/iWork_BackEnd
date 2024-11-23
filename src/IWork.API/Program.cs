@@ -68,7 +68,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddMediatR(add => add.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddDbContext<DataContext>(options =>
-options.UseMySQL(builder.Configuration.GetConnectionString("DefaultContext")));
+options.UseMySQL(Environment.GetEnvironmentVariable("DefaultContext")));
 
 builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>)); 
 builder.Services.AddScoped<IUserService, UserService>();
